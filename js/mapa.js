@@ -60,10 +60,10 @@ arquivos.forEach(arquivo => {
 
         if (!isNaN(lat) && !isNaN(lon) && !isNaN(votos) && votos > 0) {
           const visual = L.circleMarker([lat, lon], {
-            radius: Math.sqrt(votos) * 2,
+            radius: Math.sqrt(votos) * 3,
             color: arquivo.cor,
             fillColor: arquivo.cor,
-            fillOpacity: 0.7,
+            fillOpacity: 0.9,
             weight: 1
           }).addTo(camadasLocais);
           
