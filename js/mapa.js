@@ -57,8 +57,9 @@ arquivos.forEach(arquivo => {
         const votos = parseInt(linha.Votos);
         const lat = parseFloat(linha.Latitude);
         const lon = parseFloat(linha.Longitude);
-
+      
         if (!isNaN(lat) && !isNaN(lon) && !isNaN(votos) && votos > 0) {
+          // marcador visual
           const visual = L.circleMarker([lat, lon], {
             radius: Math.sqrt(votos) * 3,
             color: arquivo.cor,
@@ -66,17 +67,19 @@ arquivos.forEach(arquivo => {
             fillOpacity: 0.9,
             weight: 1
           }).addTo(camadasLocais);
-          
-          const clicavel = L.circle([lat, lon], {
-            radius: Math.sqrt(votos) * 10,
-            color: "#00000000",
-            fillColor: "#00000000",
-            fillOpacity: 0,
-            weight: 0
+      
+          // marcador invisível clicável
+          const markerInvisivel = L.marker([lat, lon], {
+            icon: L.divIcon({
+              className: 'invisivel',
+              html: '',
+              iconSize: [30, 30], // aumenta a área clicável
+              iconAnchor: [15, 15] // centraliza a área no ponto
+            })
           }).addTo(camadasLocais);
           
-          clicavel.bindPopup(`<strong>${linha.Local}</strong><br>Votos: ${votos}<br>`);
-
+          markerInvisivel.bindPopup(`<strong>${linha.Local}</strong><br>Votos: ${votos}<br>`);
+      
           listaLocais.push({
             nome: linha.Local,
             votos: votos,
@@ -85,6 +88,7 @@ arquivos.forEach(arquivo => {
           });
         }
       });
+      
 
       gerarListaDeLocais();
     }
